@@ -41,6 +41,9 @@ jobs:
       run: npm run build
     
     - name: deploy
+      env:
+        GIT_USER: ayushgarg0694
+        USE_SSH: true
       run: npm run deploy
       
       
