@@ -19,17 +19,28 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+    - name: Setup SSH Keys and known_hosts
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        eval "$(ssh-agent -s)"
+        ssh-add - <<< "${{ secrets.GH_ACTION_SSH_KEY_PRIVATE }}"
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       
     - name: Node application
       uses: actions/setup-node@v1.1.0
 
-    # Runs a single command using the runners shell
+    # installs the deps
     - name: Installation
       run: npm install
 
-    # Runs a set of commands using the runners shell
+    # builds the static website
     - name: build
       run: npm run build
+    
+    - name: deploy
+      run: npm run deploy
+      
       
