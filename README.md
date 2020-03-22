@@ -1,5 +1,7 @@
 
-# libe website at: https://ayushgarg0694.github.io/general-docs/
+![Docs deploy CI](https://github.com/ayushgarg0694/general-docs/workflows/Docs%20deploy%20CI/badge.svg?branch=master&event=push)
+
+### live website at: https://ayushgarg0694.github.io/general-docs/
 
 # Website
 
