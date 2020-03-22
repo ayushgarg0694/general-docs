@@ -19,13 +19,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
-    - name: Setup SSH Keys and known_hosts
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-        eval "$(ssh-agent -s)"
-        ssh-add - <<< "${{ secrets.GH_ACTION_SSH_KEY_PRIVATE }}"
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       
@@ -40,10 +33,15 @@ jobs:
     - name: build
       run: npm run build
     
-    - name: deploy
+    - name: setup ssh and deploy
       env:
         GIT_USER: ayushgarg0694
         USE_SSH: true
-      run: npm run deploy
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        eval "$(ssh-agent -s)"
+        ssh-add - <<< "${{ secrets.GH_ACTION_SSH_KEY_PRIVATE }}"      
+        npm run deploy
       
       
