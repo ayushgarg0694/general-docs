@@ -19,10 +19,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-  volumes:
-   - ./mongo-volume:/data/db
-
-
+    volumes:
+     - ./mongo-volume:/data/db
     ports:
       - 27017:27017
 
